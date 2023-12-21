@@ -1,6 +1,6 @@
-﻿namespace ComputerVision
+﻿namespace ComputerVision.Controls
 {
-    partial class BitwiseOp
+    partial class RotateFlipOp
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,115 +29,84 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            AImgBox = new Emgu.CV.UI.ImageBox();
-            BImgBox = new Emgu.CV.UI.ImageBox();
+            InImgBox = new Emgu.CV.UI.ImageBox();
             OutImgBox = new Emgu.CV.UI.ImageBox();
             label1 = new Label();
             OpComboBox = new ComboBox();
-            openFileDialog = new OpenFileDialog();
-            AutoNameCheckbox = new CheckBox();
             SaveButton = new Button();
+            openFileDialog = new OpenFileDialog();
             saveFileDialog = new SaveFileDialog();
-            ((System.ComponentModel.ISupportInitialize)AImgBox).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)BImgBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)InImgBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)OutImgBox).BeginInit();
             SuspendLayout();
             // 
             // AImgBox
             // 
-            AImgBox.BorderStyle = BorderStyle.FixedSingle;
-            AImgBox.Location = new Point(3, 3);
-            AImgBox.Name = "AImgBox";
-            AImgBox.Size = new Size(150, 150);
-            AImgBox.SizeMode = PictureBoxSizeMode.Zoom;
-            AImgBox.TabIndex = 2;
-            AImgBox.TabStop = false;
-            AImgBox.Tag = 0;
-            AImgBox.Click += AImgBox_Click;
+            InImgBox.BorderStyle = BorderStyle.FixedSingle;
+            InImgBox.Location = new Point(3, 3);
+            InImgBox.Name = "AImgBox";
+            InImgBox.Size = new Size(150, 150);
+            InImgBox.SizeMode = PictureBoxSizeMode.Zoom;
+            InImgBox.TabIndex = 2;
+            InImgBox.TabStop = false;
+            InImgBox.Click += InImgBox_Click;
             // 
             // BImgBox
             // 
-            BImgBox.BorderStyle = BorderStyle.FixedSingle;
-            BImgBox.Location = new Point(159, 3);
-            BImgBox.Name = "BImgBox";
-            BImgBox.Size = new Size(150, 150);
-            BImgBox.SizeMode = PictureBoxSizeMode.Zoom;
-            BImgBox.TabIndex = 3;
-            BImgBox.TabStop = false;
-            BImgBox.Tag = 1;
-            BImgBox.Click += BImgBox_Click;
-            // 
-            // CImgBox
-            // 
             OutImgBox.BorderStyle = BorderStyle.FixedSingle;
-            OutImgBox.Location = new Point(367, 3);
-            OutImgBox.Name = "CImgBox";
+            OutImgBox.Location = new Point(211, 3);
+            OutImgBox.Name = "BImgBox";
             OutImgBox.Size = new Size(150, 150);
             OutImgBox.SizeMode = PictureBoxSizeMode.Zoom;
-            OutImgBox.TabIndex = 4;
+            OutImgBox.TabIndex = 3;
             OutImgBox.TabStop = false;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(315, 62);
+            label1.Location = new Point(161, 58);
             label1.Name = "label1";
             label1.Size = new Size(46, 37);
-            label1.TabIndex = 5;
+            label1.TabIndex = 4;
             label1.Text = "->";
             // 
             // OpComboBox
             // 
             OpComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             OpComboBox.FormattingEnabled = true;
-            OpComboBox.Location = new Point(93, 159);
+            OpComboBox.Location = new Point(20, 159);
             OpComboBox.Name = "OpComboBox";
             OpComboBox.Size = new Size(121, 23);
-            OpComboBox.TabIndex = 6;
+            OpComboBox.TabIndex = 5;
             OpComboBox.SelectedIndexChanged += OpComboBox_SelectedIndexChanged;
-            // 
-            // openfileDialog
-            // 
-            openFileDialog.FileName = "openFileDialog";
-            // 
-            // AutoNameCheckbox
-            // 
-            AutoNameCheckbox.AutoSize = true;
-            AutoNameCheckbox.Checked = true;
-            AutoNameCheckbox.CheckState = CheckState.Checked;
-            AutoNameCheckbox.Location = new Point(358, 161);
-            AutoNameCheckbox.Name = "AutoNameCheckbox";
-            AutoNameCheckbox.Size = new Size(159, 19);
-            AutoNameCheckbox.TabIndex = 7;
-            AutoNameCheckbox.Text = "Auto-Name Saved Image";
-            AutoNameCheckbox.UseVisualStyleBackColor = true;
             // 
             // SaveButton
             // 
-            SaveButton.Location = new Point(277, 159);
+            SaveButton.Location = new Point(250, 158);
             SaveButton.Name = "SaveButton";
             SaveButton.Size = new Size(75, 23);
-            SaveButton.TabIndex = 8;
+            SaveButton.TabIndex = 6;
             SaveButton.Text = "Save";
             SaveButton.UseVisualStyleBackColor = true;
             SaveButton.Click += SaveButton_Click;
             // 
-            // BitwiseOp
+            // openFileDialog
+            // 
+            openFileDialog.FileName = "openFileDialog";
+            // 
+            // RotateOp
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(SaveButton);
-            Controls.Add(AutoNameCheckbox);
             Controls.Add(OpComboBox);
             Controls.Add(label1);
             Controls.Add(OutImgBox);
-            Controls.Add(BImgBox);
-            Controls.Add(AImgBox);
-            Name = "BitwiseOp";
-            Size = new Size(521, 190);
-            ((System.ComponentModel.ISupportInitialize)AImgBox).EndInit();
-            ((System.ComponentModel.ISupportInitialize)BImgBox).EndInit();
+            Controls.Add(InImgBox);
+            Name = "RotateOp";
+            Size = new Size(365, 186);
+            ((System.ComponentModel.ISupportInitialize)InImgBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)OutImgBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -145,14 +114,12 @@
 
         #endregion
 
-        private Emgu.CV.UI.ImageBox AImgBox;
-        private Emgu.CV.UI.ImageBox BImgBox;
+        private Emgu.CV.UI.ImageBox InImgBox;
         private Emgu.CV.UI.ImageBox OutImgBox;
         private Label label1;
         private ComboBox OpComboBox;
-        private OpenFileDialog openFileDialog;
-        private CheckBox AutoNameCheckbox;
         private Button SaveButton;
+        private OpenFileDialog openFileDialog;
         private SaveFileDialog saveFileDialog;
     }
 }

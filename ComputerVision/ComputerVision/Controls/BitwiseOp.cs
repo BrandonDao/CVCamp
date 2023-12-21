@@ -21,7 +21,8 @@ namespace ComputerVision
             public override string ToString() => Name;
         }
 
-        Mat aMat, bMat, cMat;
+        private Mat aMat, bMat;
+        private readonly Mat outMat;
         string aMatName, bMatName;
 
         public BitwiseOp()
@@ -30,7 +31,7 @@ namespace ComputerVision
 
             aMat = new Mat();
             bMat = new Mat();
-            cMat = new Mat();
+            outMat = new Mat();
 
             aMatName = "";
             bMatName = "";
@@ -71,21 +72,21 @@ namespace ComputerVision
 
             try
             {
-                opInfo.Operation.Invoke(aMat, bMat, cMat);
-                CImgBox.Image = cMat;
+                opInfo.Operation.Invoke(aMat, bMat, outMat);
+                OutImgBox.Image = outMat;
             }
             catch { }
         }
 
         private void HangleImgBoxClick(object sender)
         {
-            if (openfileDialog.ShowDialog() == DialogResult.Cancel) return;
+            if (openFileDialog.ShowDialog() == DialogResult.Cancel) return;
 
             ImageBox imgBox = (ImageBox)sender;
             int tag = (int)imgBox.Tag;
 
-            Mat selectedMat = CvInvoke.Imread(openfileDialog.FileName);
-            string matName = Regex.Match(openfileDialog.FileName, @"\\([a-zA-Z0-9-]*).png").Groups[1].Value;
+            Mat selectedMat = CvInvoke.Imread(openFileDialog.FileName);
+            string matName = Regex.Match(openFileDialog.FileName, @"\\([a-zA-Z0-9-]*).png").Groups[1].Value;
 
             switch (tag)
             {
@@ -115,7 +116,7 @@ namespace ComputerVision
 
             if (AutoNameCheckbox.Checked)
             {
-                CvInvoke.Imwrite(Constants.BasePath + suggestedFileName, cMat);
+                CvInvoke.Imwrite(Constants.BasePath + suggestedFileName, outMat);
             }
             else
             {
@@ -125,7 +126,7 @@ namespace ComputerVision
 
                 try
                 {
-                    CvInvoke.Imwrite(saveFileDialog.FileName, cMat);
+                    CvInvoke.Imwrite(saveFileDialog.FileName, outMat);
                 }
                 catch { }
             }
