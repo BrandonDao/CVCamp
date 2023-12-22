@@ -156,5 +156,18 @@ namespace ComputerVision.Controls
 
             UpdateOutput();
         }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            saveFileDialog.FileName = "image.png";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.Cancel) return;
+
+            try
+            {
+                CvInvoke.Imwrite(saveFileDialog.FileName, outMat);
+            }
+            catch { }
+        }
     }
 }

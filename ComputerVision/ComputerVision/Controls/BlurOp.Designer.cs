@@ -1,6 +1,6 @@
 ﻿namespace ComputerVision.Controls
 {
-    partial class Threshold
+    partial class BlurOp
     {
         /// <summary> 
         /// Required designer variable.
@@ -31,18 +31,16 @@
             components = new System.ComponentModel.Container();
             InImgBox = new Emgu.CV.UI.ImageBox();
             OutImgBox = new Emgu.CV.UI.ImageBox();
-            OpComboBox = new ComboBox();
-            ThresholdTrackbar = new TrackBar();
-            ValueTrackbar = new TrackBar();
-            label1 = new Label();
-            label2 = new Label();
             openFileDialog = new OpenFileDialog();
             saveFileDialog = new SaveFileDialog();
+            KernelYTrackbar = new TrackBar();
             SaveButton = new Button();
+            KernelXTrackbar = new TrackBar();
+            BorderTypeComboBox = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)InImgBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)OutImgBox).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)ThresholdTrackbar).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)ValueTrackbar).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)KernelYTrackbar).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)KernelXTrackbar).BeginInit();
             SuspendLayout();
             // 
             // InImgBox
@@ -59,91 +57,77 @@
             // OutImgBox
             // 
             OutImgBox.BorderStyle = BorderStyle.FixedSingle;
-            OutImgBox.Location = new Point(390, 3);
+            OutImgBox.Location = new Point(501, 3);
             OutImgBox.Name = "OutImgBox";
             OutImgBox.Size = new Size(150, 150);
             OutImgBox.SizeMode = PictureBoxSizeMode.Zoom;
             OutImgBox.TabIndex = 3;
             OutImgBox.TabStop = false;
             // 
-            // OpComboBox
-            // 
-            OpComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            OpComboBox.FormattingEnabled = true;
-            OpComboBox.Location = new Point(159, 3);
-            OpComboBox.Name = "OpComboBox";
-            OpComboBox.Size = new Size(121, 23);
-            OpComboBox.TabIndex = 4;
-            OpComboBox.SelectedIndexChanged += OpComboBox_SelectedIndexChanged;
-            // 
-            // ThresholdTrackbar
-            // 
-            ThresholdTrackbar.Location = new Point(159, 64);
-            ThresholdTrackbar.Maximum = 255;
-            ThresholdTrackbar.Name = "ThresholdTrackbar";
-            ThresholdTrackbar.Size = new Size(225, 45);
-            ThresholdTrackbar.TabIndex = 5;
-            ThresholdTrackbar.Scroll += ThresholdTrackbar_Scroll;
-            // 
-            // ValueTrackbar
-            // 
-            ValueTrackbar.Location = new Point(159, 125);
-            ValueTrackbar.Maximum = 255;
-            ValueTrackbar.Name = "ValueTrackbar";
-            ValueTrackbar.Size = new Size(225, 45);
-            ValueTrackbar.TabIndex = 6;
-            ValueTrackbar.Scroll += ValueTrackbar_Scroll;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(159, 46);
-            label1.Name = "label1";
-            label1.Size = new Size(59, 15);
-            label1.TabIndex = 7;
-            label1.Text = "Threshold";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(159, 107);
-            label2.Name = "label2";
-            label2.Size = new Size(35, 15);
-            label2.TabIndex = 8;
-            label2.Text = "Value";
-            // 
             // openFileDialog
             // 
             openFileDialog.FileName = "openFileDialog";
             // 
+            // KernelYTrackbar
+            // 
+            KernelYTrackbar.Location = new Point(159, 54);
+            KernelYTrackbar.Maximum = 101;
+            KernelYTrackbar.Minimum = 3;
+            KernelYTrackbar.Name = "KernelYTrackbar";
+            KernelYTrackbar.Size = new Size(336, 45);
+            KernelYTrackbar.TabIndex = 4;
+            KernelYTrackbar.TickFrequency = 2;
+            KernelYTrackbar.Value = 3;
+            KernelYTrackbar.Scroll += KernelYTrackbar_Scroll;
+            // 
             // SaveButton
             // 
-            SaveButton.Location = new Point(428, 159);
+            SaveButton.Location = new Point(539, 159);
             SaveButton.Name = "SaveButton";
             SaveButton.Size = new Size(75, 23);
-            SaveButton.TabIndex = 9;
+            SaveButton.TabIndex = 5;
             SaveButton.Text = "Save";
             SaveButton.UseVisualStyleBackColor = true;
             SaveButton.Click += SaveButton_Click;
             // 
-            // Threshold
+            // KernelXTrackbar
+            // 
+            KernelXTrackbar.Location = new Point(159, 3);
+            KernelXTrackbar.Maximum = 101;
+            KernelXTrackbar.Minimum = 3;
+            KernelXTrackbar.Name = "KernelXTrackbar";
+            KernelXTrackbar.Size = new Size(336, 45);
+            KernelXTrackbar.TabIndex = 6;
+            KernelXTrackbar.TickFrequency = 2;
+            KernelXTrackbar.Value = 3;
+            KernelXTrackbar.Scroll += KernelXTrackbar_Scroll;
+            // 
+            // OpTypeComboBox
+            // 
+            BorderTypeComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            BorderTypeComboBox.FormattingEnabled = true;
+            BorderTypeComboBox.Location = new Point(159, 105);
+            BorderTypeComboBox.Name = "OpTypeComboBox";
+            BorderTypeComboBox.Size = new Size(121, 23);
+            BorderTypeComboBox.TabIndex = 7;
+            BorderTypeComboBox.SelectedIndexChanged += OpTypeComboBox_SelectedIndexChanged;
+            // 
+            // BlurOp
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(BorderTypeComboBox);
+            Controls.Add(KernelXTrackbar);
             Controls.Add(SaveButton);
-            Controls.Add(label2);
-            Controls.Add(label1);
-            Controls.Add(ValueTrackbar);
-            Controls.Add(ThresholdTrackbar);
-            Controls.Add(OpComboBox);
+            Controls.Add(KernelYTrackbar);
             Controls.Add(OutImgBox);
             Controls.Add(InImgBox);
-            Name = "Threshold";
-            Size = new Size(543, 183);
+            Name = "BlurOp";
+            Size = new Size(655, 187);
             ((System.ComponentModel.ISupportInitialize)InImgBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)OutImgBox).EndInit();
-            ((System.ComponentModel.ISupportInitialize)ThresholdTrackbar).EndInit();
-            ((System.ComponentModel.ISupportInitialize)ValueTrackbar).EndInit();
+            ((System.ComponentModel.ISupportInitialize)KernelYTrackbar).EndInit();
+            ((System.ComponentModel.ISupportInitialize)KernelXTrackbar).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -152,13 +136,11 @@
 
         private Emgu.CV.UI.ImageBox InImgBox;
         private Emgu.CV.UI.ImageBox OutImgBox;
-        private ComboBox OpComboBox;
-        private TrackBar ThresholdTrackbar;
-        private TrackBar ValueTrackbar;
-        private Label label1;
-        private Label label2;
         private OpenFileDialog openFileDialog;
         private SaveFileDialog saveFileDialog;
+        private TrackBar KernelYTrackbar;
         private Button SaveButton;
+        private TrackBar KernelXTrackbar;
+        private ComboBox BorderTypeComboBox;
     }
 }

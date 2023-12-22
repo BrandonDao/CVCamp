@@ -18,7 +18,7 @@ namespace ComputerVision
                 Operation = operation;
             }
 
-            public override string ToString() => Name;
+            public override readonly string ToString() => Name;
         }
 
         private Mat aMat, bMat;

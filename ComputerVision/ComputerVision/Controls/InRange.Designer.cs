@@ -52,6 +52,7 @@
             Low1ImgBox = new Emgu.CV.UI.ImageBox();
             Up4ImgBox = new Emgu.CV.UI.ImageBox();
             Low4ImgBox = new Emgu.CV.UI.ImageBox();
+            SaveButton = new Button();
             ((System.ComponentModel.ISupportInitialize)InImgBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)OutImgBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)TopUpperTrackbar).BeginInit();
@@ -279,10 +280,21 @@
             Low4ImgBox.TabIndex = 21;
             Low4ImgBox.TabStop = false;
             // 
+            // SaveButton
+            // 
+            SaveButton.Location = new Point(438, 243);
+            SaveButton.Name = "SaveButton";
+            SaveButton.Size = new Size(75, 23);
+            SaveButton.TabIndex = 22;
+            SaveButton.Text = "Save";
+            SaveButton.UseVisualStyleBackColor = true;
+            SaveButton.Click += SaveButton_Click;
+            // 
             // InRange
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(SaveButton);
             Controls.Add(Low4ImgBox);
             Controls.Add(Up4ImgBox);
             Controls.Add(Low3ImgBox);
@@ -305,7 +317,7 @@
             Controls.Add(OutImgBox);
             Controls.Add(InImgBox);
             Name = "InRange";
-            Size = new Size(653, 302);
+            Size = new Size(560, 302);
             ((System.ComponentModel.ISupportInitialize)InImgBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)OutImgBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)TopUpperTrackbar).EndInit();
@@ -351,5 +363,6 @@
         private Emgu.CV.UI.ImageBox Low1ImgBox;
         private Emgu.CV.UI.ImageBox Up4ImgBox;
         private Emgu.CV.UI.ImageBox Low4ImgBox;
+        private Button SaveButton;
     }
 }

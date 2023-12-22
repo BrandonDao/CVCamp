@@ -42,6 +42,12 @@
             inRange1 = new ComputerVision.Controls.InRange();
             tabPage1 = new TabPage();
             convertColorOp1 = new ComputerVision.Controls.ConvertColorOp();
+            ThresholdTabPage = new TabPage();
+            threshold1 = new ComputerVision.Controls.Threshold();
+            CopyToTabPage = new TabPage();
+            copyToOp1 = new ComputerVision.Controls.CopyToOp();
+            BlurTabPage = new TabPage();
+            blurOp1 = new ComputerVision.Controls.BlurOp();
             TabControl.SuspendLayout();
             Bitwise_TabPage.SuspendLayout();
             ROI_TabPage.SuspendLayout();
@@ -49,6 +55,9 @@
             ResizeTabPage.SuspendLayout();
             InRangeTabPage.SuspendLayout();
             tabPage1.SuspendLayout();
+            ThresholdTabPage.SuspendLayout();
+            CopyToTabPage.SuspendLayout();
+            BlurTabPage.SuspendLayout();
             SuspendLayout();
             // 
             // Bitwise_ImgSelectionDialog
@@ -63,10 +72,13 @@
             TabControl.Controls.Add(ResizeTabPage);
             TabControl.Controls.Add(InRangeTabPage);
             TabControl.Controls.Add(tabPage1);
+            TabControl.Controls.Add(ThresholdTabPage);
+            TabControl.Controls.Add(CopyToTabPage);
+            TabControl.Controls.Add(BlurTabPage);
             TabControl.Location = new Point(12, 12);
             TabControl.Name = "TabControl";
             TabControl.SelectedIndex = 0;
-            TabControl.Size = new Size(662, 328);
+            TabControl.Size = new Size(703, 328);
             TabControl.TabIndex = 8;
             // 
             // Bitwise_TabPage
@@ -177,11 +189,65 @@
             convertColorOp1.Size = new Size(313, 188);
             convertColorOp1.TabIndex = 0;
             // 
+            // ThresholdTabPage
+            // 
+            ThresholdTabPage.Controls.Add(threshold1);
+            ThresholdTabPage.Location = new Point(4, 24);
+            ThresholdTabPage.Name = "ThresholdTabPage";
+            ThresholdTabPage.Padding = new Padding(3);
+            ThresholdTabPage.Size = new Size(654, 300);
+            ThresholdTabPage.TabIndex = 9;
+            ThresholdTabPage.Text = "Threshold";
+            ThresholdTabPage.UseVisualStyleBackColor = true;
+            // 
+            // threshold1
+            // 
+            threshold1.Location = new Point(6, 6);
+            threshold1.Name = "threshold1";
+            threshold1.Size = new Size(543, 183);
+            threshold1.TabIndex = 0;
+            // 
+            // CopyToTabPage
+            // 
+            CopyToTabPage.Controls.Add(copyToOp1);
+            CopyToTabPage.Location = new Point(4, 24);
+            CopyToTabPage.Name = "CopyToTabPage";
+            CopyToTabPage.Padding = new Padding(3);
+            CopyToTabPage.Size = new Size(654, 300);
+            CopyToTabPage.TabIndex = 10;
+            CopyToTabPage.Text = "Copy To";
+            CopyToTabPage.UseVisualStyleBackColor = true;
+            // 
+            // copyToOp1
+            // 
+            copyToOp1.Location = new Point(6, 6);
+            copyToOp1.Name = "copyToOp1";
+            copyToOp1.Size = new Size(562, 237);
+            copyToOp1.TabIndex = 0;
+            // 
+            // BlurTabPage
+            // 
+            BlurTabPage.Controls.Add(blurOp1);
+            BlurTabPage.Location = new Point(4, 24);
+            BlurTabPage.Name = "BlurTabPage";
+            BlurTabPage.Padding = new Padding(3);
+            BlurTabPage.Size = new Size(695, 300);
+            BlurTabPage.TabIndex = 12;
+            BlurTabPage.Text = "Blur";
+            BlurTabPage.UseVisualStyleBackColor = true;
+            // 
+            // blurOp1
+            // 
+            blurOp1.Location = new Point(6, 6);
+            blurOp1.Name = "blurOp1";
+            blurOp1.Size = new Size(655, 187);
+            blurOp1.TabIndex = 0;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(682, 352);
+            ClientSize = new Size(727, 352);
             Controls.Add(TabControl);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "Form1";
@@ -194,6 +260,9 @@
             ResizeTabPage.ResumeLayout(false);
             InRangeTabPage.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
+            ThresholdTabPage.ResumeLayout(false);
+            CopyToTabPage.ResumeLayout(false);
+            BlurTabPage.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -213,5 +282,11 @@
         private ComputerVision.Controls.InRange inRange1;
         private TabPage tabPage1;
         private ComputerVision.Controls.ConvertColorOp convertColorOp1;
+        private TabPage ThresholdTabPage;
+        private ComputerVision.Controls.Threshold threshold1;
+        private TabPage CopyToTabPage;
+        private ComputerVision.Controls.CopyToOp copyToOp1;
+        private TabPage BlurTabPage;
+        private ComputerVision.Controls.BlurOp blurOp1;
     }
 }

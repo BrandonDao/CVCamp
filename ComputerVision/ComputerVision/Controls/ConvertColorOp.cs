@@ -34,8 +34,9 @@ namespace ComputerVision.Controls
             ConversionComboBox.Items.AddRange(new object[]
             {
                 new ConversionInfo("BGR -> HSV", ColorConversion.Bgr2Hsv),
-                new ConversionInfo("BGR -> Grayscale", ColorConversion.Bgr2Gray),
                 new ConversionInfo("HSV -> BGR", ColorConversion.Hsv2Bgr),
+                new ConversionInfo("BGR -> Grayscale", ColorConversion.Bgr2Gray),
+                new ConversionInfo("Grayscale -> BGR", ColorConversion.Gray2Bgr),
             });
 
             ConversionComboBox.SelectedIndex = 0;

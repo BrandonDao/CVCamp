@@ -1,7 +1,5 @@
 ﻿using Emgu.CV;
 using Emgu.CV.UI;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
 
 namespace ComputerVision.Controls
 {
