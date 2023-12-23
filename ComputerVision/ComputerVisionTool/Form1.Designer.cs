@@ -28,40 +28,47 @@
         /// </summary>
         private void InitializeComponent()
         {
-            bitwiseOp1 = new Controls.Operations.BitwiseOp();
-            bitwiseOp2 = new Controls.Operations.BitwiseOp();
+            AddBitwiseButton = new Button();
+            AddColorConvertButton = new Button();
             SuspendLayout();
             // 
-            // bitwiseOp1
+            // AddBitwiseButton
             // 
-            bitwiseOp1.Location = new Point(33, 40);
-            bitwiseOp1.Name = "bitwiseOp1";
-            bitwiseOp1.Size = new Size(712, 300);
-            bitwiseOp1.TabIndex = 0;
+            AddBitwiseButton.Location = new Point(12, 6);
+            AddBitwiseButton.Name = "AddBitwiseButton";
+            AddBitwiseButton.Size = new Size(140, 23);
+            AddBitwiseButton.TabIndex = 1;
+            AddBitwiseButton.Text = "Add Bitwise";
+            AddBitwiseButton.UseVisualStyleBackColor = true;
+            AddBitwiseButton.Click += AddBitwiseButton_Click;
             // 
-            // bitwiseOp2
+            // AddColorConvertButton
             // 
-            bitwiseOp2.Location = new Point(33, 313);
-            bitwiseOp2.Name = "bitwiseOp2";
-            bitwiseOp2.Size = new Size(571, 220);
-            bitwiseOp2.TabIndex = 1;
+            AddColorConvertButton.Location = new Point(12, 35);
+            AddColorConvertButton.Name = "AddColorConvertButton";
+            AddColorConvertButton.Size = new Size(140, 23);
+            AddColorConvertButton.TabIndex = 2;
+            AddColorConvertButton.Text = "Add Color Converter";
+            AddColorConvertButton.UseVisualStyleBackColor = true;
+            AddColorConvertButton.Click += AddColorConvertButton_Click;
             // 
             // Form1
             // 
+            AllowDrop = true;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(840, 545);
-            Controls.Add(bitwiseOp2);
-            Controls.Add(bitwiseOp1);
+            AutoScroll = true;
+            ClientSize = new Size(985, 729);
+            Controls.Add(AddColorConvertButton);
+            Controls.Add(AddBitwiseButton);
             Name = "Form1";
-            Text = "Form1";
+            Text = "CV Tool";
             Load += Form1_Load;
             ResumeLayout(false);
         }
 
         #endregion
-
-        private Controls.Operations.BitwiseOp bitwiseOp1;
-        private Controls.Operations.BitwiseOp bitwiseOp2;
+        private Button AddBitwiseButton;
+        private Button AddColorConvertButton;
     }
 }

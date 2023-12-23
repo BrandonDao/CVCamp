@@ -2,7 +2,7 @@
 
 namespace ComputerVisionTool.Controls.Operations
 {
-    public partial class BitwiseOp : UserControl
+    public partial class BitwiseOp : UserControl, IOperation
     {
         public struct OpType
         {
@@ -18,8 +18,7 @@ namespace ComputerVisionTool.Controls.Operations
             public override readonly string ToString() => Name;
         }
 
-        public OperationInfo OpInfo { get; private set; }
-
+        public OperationInfo OpInfo { get; set; }
         public BitwiseOp()
         {
             InitializeComponent();
@@ -28,9 +27,6 @@ namespace ComputerVisionTool.Controls.Operations
             InputImgA.OpInfo = OpInfo;
             InputImgB.OpInfo = OpInfo;
             OutputImg.OpInfo = OpInfo;
-
-            InputImgA.CallWhenChanged = UpdateOutput;
-            InputImgB.CallWhenChanged = UpdateOutput;
 
             OpComboBox.Items.AddRange(new object[]
             {
@@ -41,6 +37,14 @@ namespace ComputerVisionTool.Controls.Operations
             });
 
             OpComboBox.SelectedIndex = 0;
+            UpdateAll();
+        }
+
+        public void UpdateAll()
+        {
+            InputImgA.UpdateNamedInputs();
+            InputImgB.UpdateNamedInputs();
+            UpdateOutput();
         }
 
         private void UpdateOutput()
@@ -62,6 +66,7 @@ namespace ComputerVisionTool.Controls.Operations
         private void OpComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateOutput();
+            ((Form1)Parent)?.UpdateAll();
         }
     }
 }

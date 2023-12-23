@@ -48,6 +48,8 @@
             copyToOp1 = new ComputerVision.Controls.CopyToOp();
             BlurTabPage = new TabPage();
             blurOp1 = new ComputerVision.Controls.BlurOp();
+            ContourTabPage = new TabPage();
+            captureContours1 = new ComputerVision.Controls.CaptureContours();
             TabControl.SuspendLayout();
             Bitwise_TabPage.SuspendLayout();
             ROI_TabPage.SuspendLayout();
@@ -58,6 +60,7 @@
             ThresholdTabPage.SuspendLayout();
             CopyToTabPage.SuspendLayout();
             BlurTabPage.SuspendLayout();
+            ContourTabPage.SuspendLayout();
             SuspendLayout();
             // 
             // Bitwise_ImgSelectionDialog
@@ -75,6 +78,7 @@
             TabControl.Controls.Add(ThresholdTabPage);
             TabControl.Controls.Add(CopyToTabPage);
             TabControl.Controls.Add(BlurTabPage);
+            TabControl.Controls.Add(ContourTabPage);
             TabControl.Location = new Point(12, 12);
             TabControl.Name = "TabControl";
             TabControl.SelectedIndex = 0;
@@ -87,7 +91,7 @@
             Bitwise_TabPage.Location = new Point(4, 24);
             Bitwise_TabPage.Name = "Bitwise_TabPage";
             Bitwise_TabPage.Padding = new Padding(3);
-            Bitwise_TabPage.Size = new Size(654, 300);
+            Bitwise_TabPage.Size = new Size(695, 300);
             Bitwise_TabPage.TabIndex = 1;
             Bitwise_TabPage.Text = "Bitwise";
             Bitwise_TabPage.UseVisualStyleBackColor = true;
@@ -105,7 +109,7 @@
             ROI_TabPage.Location = new Point(4, 24);
             ROI_TabPage.Name = "ROI_TabPage";
             ROI_TabPage.Padding = new Padding(3);
-            ROI_TabPage.Size = new Size(654, 300);
+            ROI_TabPage.Size = new Size(695, 300);
             ROI_TabPage.TabIndex = 4;
             ROI_TabPage.Text = "ROI";
             ROI_TabPage.UseVisualStyleBackColor = true;
@@ -123,7 +127,7 @@
             RotateFlipTabPage.Location = new Point(4, 24);
             RotateFlipTabPage.Name = "RotateFlipTabPage";
             RotateFlipTabPage.Padding = new Padding(3);
-            RotateFlipTabPage.Size = new Size(654, 300);
+            RotateFlipTabPage.Size = new Size(695, 300);
             RotateFlipTabPage.TabIndex = 5;
             RotateFlipTabPage.Text = "Rotate & Flip";
             RotateFlipTabPage.UseVisualStyleBackColor = true;
@@ -141,7 +145,7 @@
             ResizeTabPage.Location = new Point(4, 24);
             ResizeTabPage.Name = "ResizeTabPage";
             ResizeTabPage.Padding = new Padding(3);
-            ResizeTabPage.Size = new Size(654, 300);
+            ResizeTabPage.Size = new Size(695, 300);
             ResizeTabPage.TabIndex = 6;
             ResizeTabPage.Text = "Resize";
             ResizeTabPage.UseVisualStyleBackColor = true;
@@ -159,7 +163,7 @@
             InRangeTabPage.Location = new Point(4, 24);
             InRangeTabPage.Name = "InRangeTabPage";
             InRangeTabPage.Padding = new Padding(3);
-            InRangeTabPage.Size = new Size(654, 300);
+            InRangeTabPage.Size = new Size(695, 300);
             InRangeTabPage.TabIndex = 7;
             InRangeTabPage.Text = "InRange";
             InRangeTabPage.UseVisualStyleBackColor = true;
@@ -177,7 +181,7 @@
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(654, 300);
+            tabPage1.Size = new Size(695, 300);
             tabPage1.TabIndex = 8;
             tabPage1.Text = "Convert Color";
             tabPage1.UseVisualStyleBackColor = true;
@@ -195,7 +199,7 @@
             ThresholdTabPage.Location = new Point(4, 24);
             ThresholdTabPage.Name = "ThresholdTabPage";
             ThresholdTabPage.Padding = new Padding(3);
-            ThresholdTabPage.Size = new Size(654, 300);
+            ThresholdTabPage.Size = new Size(695, 300);
             ThresholdTabPage.TabIndex = 9;
             ThresholdTabPage.Text = "Threshold";
             ThresholdTabPage.UseVisualStyleBackColor = true;
@@ -213,7 +217,7 @@
             CopyToTabPage.Location = new Point(4, 24);
             CopyToTabPage.Name = "CopyToTabPage";
             CopyToTabPage.Padding = new Padding(3);
-            CopyToTabPage.Size = new Size(654, 300);
+            CopyToTabPage.Size = new Size(695, 300);
             CopyToTabPage.TabIndex = 10;
             CopyToTabPage.Text = "Copy To";
             CopyToTabPage.UseVisualStyleBackColor = true;
@@ -243,6 +247,24 @@
             blurOp1.Size = new Size(655, 187);
             blurOp1.TabIndex = 0;
             // 
+            // ContourTabPage
+            // 
+            ContourTabPage.Controls.Add(captureContours1);
+            ContourTabPage.Location = new Point(4, 24);
+            ContourTabPage.Name = "ContourTabPage";
+            ContourTabPage.Padding = new Padding(3);
+            ContourTabPage.Size = new Size(695, 300);
+            ContourTabPage.TabIndex = 13;
+            ContourTabPage.Text = "Contour";
+            ContourTabPage.UseVisualStyleBackColor = true;
+            // 
+            // captureContours1
+            // 
+            captureContours1.Location = new Point(6, 6);
+            captureContours1.Name = "captureContours1";
+            captureContours1.Size = new Size(530, 157);
+            captureContours1.TabIndex = 0;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -263,6 +285,7 @@
             ThresholdTabPage.ResumeLayout(false);
             CopyToTabPage.ResumeLayout(false);
             BlurTabPage.ResumeLayout(false);
+            ContourTabPage.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -288,5 +311,7 @@
         private ComputerVision.Controls.CopyToOp copyToOp1;
         private TabPage BlurTabPage;
         private ComputerVision.Controls.BlurOp blurOp1;
+        private TabPage ContourTabPage;
+        private ComputerVision.Controls.CaptureContours captureContours1;
     }
 }

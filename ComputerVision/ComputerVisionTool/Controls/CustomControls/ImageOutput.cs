@@ -1,5 +1,4 @@
 ﻿using Emgu.CV;
-using Emgu.CV.Features2D;
 
 namespace ComputerVisionTool.Controls.CustomControls
 {
@@ -16,7 +15,9 @@ namespace ComputerVisionTool.Controls.CustomControls
         }
 
         public void UpdateImage()
-            => ImageBox.Image = Mat;
+        {
+            ImageBox.Image = Mat;
+        }
 
         private void NameTextbox_TextChanged(object sender, EventArgs e)
         {
@@ -28,6 +29,8 @@ namespace ComputerVisionTool.Controls.CustomControls
             {
                 NameManager.NamedInputsByImage[this].Name = NameTextbox.Text;
             }
+
+            ((Form1)Parent.Parent).UpdateAll();
         }
 
         private void SaveButton_Click(object sender, EventArgs e)

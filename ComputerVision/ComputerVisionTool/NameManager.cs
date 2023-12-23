@@ -18,6 +18,6 @@ namespace ComputerVisionTool
 
     public static class NameManager
     {
-        public static Dictionary<ImageOutput, List<NamedInput>> NamedInputsByImage = new();
+        public static Dictionary<ImageOutput, NamedInput> NamedInputsByImage = new();
     }
 }

@@ -6,7 +6,7 @@ namespace ComputerVisionTool.Controls.CustomControls
     {
         public Mat? Mat { get; private set; }
         public OperationInfo? OpInfo { get; set; }
-        public Action? CallWhenChanged { get; set; }
+        private bool areNamedUpdatesDisabaled;
 
         public ImageInput()
         {
@@ -17,32 +17,57 @@ namespace ComputerVisionTool.Controls.CustomControls
 
         public void UpdateNamedInputs()
         {
+            if (areNamedUpdatesDisabaled) return;
+            
+            var selectedNamedInput = (NamedInput)NamedInputComboBox.SelectedItem;
             NamedInputComboBox.Items.Clear();
-            NamedInputComboBox.Items.Add(NamedInput.NoInput);
+            // NamedInputComboBox.Items.Add(NamedInput.NoInput);
 
+            areNamedUpdatesDisabaled = true;
+
+            int i = 0;
             foreach (NamedInput namedInput in NameManager.NamedInputsByImage.Values)
             {
-                if (namedInput.ImageOutput.OpInfo!.ID == OpInfo!.ID) continue;
+                if (namedInput.ImageOutput.OpInfo!.ID >= OpInfo!.ID) continue;
 
                 NamedInputComboBox.Items.Add(namedInput);
+
+                if(namedInput == selectedNamedInput)
+                {
+                    NamedInputComboBox.SelectedIndex = i;
+                }
+
+                i++;
             }
+            areNamedUpdatesDisabaled = false;
+
+            UpdateImage();
         }
 
         private void ImageBox_Click(object sender, EventArgs e)
         {
             if (openFileDialog.ShowDialog() == DialogResult.Cancel) return;
 
+            NamedInputComboBox.SelectedIndex = -1;
             Mat = CvInvoke.Imread(openFileDialog.FileName);
 
             ImageBox.Image = Mat;
-            CallWhenChanged!.Invoke();
+
+            ((Form1)Parent.Parent).UpdateAll();
+        }
+
+        private void UpdateImage()
+        {
+            if (NamedInputComboBox.SelectedItem == null) return;
+
+            Mat = ((NamedInput)NamedInputComboBox.SelectedItem).ImageOutput.Mat;
+            ImageBox.Image = Mat;
         }
 
         private void NamedInputComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Mat = ((NamedInput)NamedInputComboBox.SelectedItem).ImageOutput.Mat;
-            ImageBox.Image = Mat;
-            CallWhenChanged!.Invoke();
+            UpdateNamedInputs();
+            ((Form1)Parent.Parent).UpdateAll();
         }
     }
 }

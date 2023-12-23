@@ -1,6 +1,6 @@
 ﻿namespace ComputerVisionTool.Controls.Operations
 {
-    partial class BitwiseOp
+    partial class ConvertColorOp
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,80 +28,69 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BitwiseOp));
-            InputImgA = new CustomControls.ImageInput();
-            InputImgB = new CustomControls.ImageInput();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConvertColorOp));
+            InputImg = new CustomControls.ImageInput();
             OutputImg = new CustomControls.ImageOutput();
-            ArrowLabel = new Label();
+            label1 = new Label();
             OpComboBox = new ComboBox();
             SuspendLayout();
             // 
-            // InputImgA
+            // InputImg
             // 
-            InputImgA.Location = new Point(3, 3);
-            InputImgA.Name = "InputImgA";
-            InputImgA.OpInfo = null;
-            InputImgA.Size = new Size(156, 186);
-            InputImgA.TabIndex = 0;
-            // 
-            // InputImgB
-            // 
-            InputImgB.Location = new Point(165, 3);
-            InputImgB.Name = "InputImgB";
-            InputImgB.OpInfo = null;
-            InputImgB.Size = new Size(156, 186);
-            InputImgB.TabIndex = 1;
+            InputImg.Location = new Point(3, 3);
+            InputImg.Name = "InputImg";
+            InputImg.OpInfo = null;
+            InputImg.Size = new Size(156, 186);
+            InputImg.TabIndex = 0;
             // 
             // OutputImg
             // 
-            OutputImg.Location = new Point(412, 3);
+            OutputImg.Location = new Point(315, 3);
             OutputImg.Mat = (Emgu.CV.Mat)resources.GetObject("OutputImg.Mat");
             OutputImg.Name = "OutputImg";
             OutputImg.OpInfo = null;
             OutputImg.Size = new Size(157, 216);
-            OutputImg.TabIndex = 2;
+            OutputImg.TabIndex = 1;
             // 
-            // ArrowLabel
+            // label1
             // 
-            ArrowLabel.AutoSize = true;
-            ArrowLabel.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
-            ArrowLabel.Location = new Point(343, 86);
-            ArrowLabel.Name = "ArrowLabel";
-            ArrowLabel.Size = new Size(46, 37);
-            ArrowLabel.TabIndex = 3;
-            ArrowLabel.Text = "->";
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(215, 84);
+            label1.Name = "label1";
+            label1.Size = new Size(46, 37);
+            label1.TabIndex = 2;
+            label1.Text = "->";
             // 
             // OpComboBox
             // 
             OpComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             OpComboBox.FormattingEnabled = true;
-            OpComboBox.Location = new Point(327, 126);
+            OpComboBox.Location = new Point(165, 124);
             OpComboBox.Name = "OpComboBox";
-            OpComboBox.Size = new Size(79, 23);
-            OpComboBox.TabIndex = 4;
+            OpComboBox.Size = new Size(144, 23);
+            OpComboBox.TabIndex = 3;
             OpComboBox.SelectedIndexChanged += OpComboBox_SelectedIndexChanged;
             // 
-            // BitwiseOp
+            // ConvertColorOp
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(OpComboBox);
-            Controls.Add(ArrowLabel);
+            Controls.Add(label1);
             Controls.Add(OutputImg);
-            Controls.Add(InputImgB);
-            Controls.Add(InputImgA);
-            Name = "BitwiseOp";
-            Size = new Size(571, 220);
+            Controls.Add(InputImg);
+            Name = "ConvertColorOp";
+            Size = new Size(475, 222);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private CustomControls.ImageInput InputImgA;
-        private CustomControls.ImageInput InputImgB;
+        private CustomControls.ImageInput InputImg;
         private CustomControls.ImageOutput OutputImg;
-        private Label ArrowLabel;
+        private Label label1;
         private ComboBox OpComboBox;
     }
 }
