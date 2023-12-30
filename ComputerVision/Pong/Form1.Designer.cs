@@ -171,7 +171,7 @@
             GamePictureBox.BorderStyle = BorderStyle.FixedSingle;
             GamePictureBox.Location = new Point(516, 12);
             GamePictureBox.Name = "GamePictureBox";
-            GamePictureBox.Size = new Size(498, 321);
+            GamePictureBox.Size = new Size(925, 595);
             GamePictureBox.TabIndex = 12;
             GamePictureBox.TabStop = false;
             GamePictureBox.Click += GamePictureBox_Click;
@@ -219,7 +219,7 @@
             CapturedColorImgBox.Location = new Point(12, 547);
             CapturedColorImgBox.Name = "CapturedColorImgBox";
             CapturedColorImgBox.Size = new Size(50, 50);
-            CapturedColorImgBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            CapturedColorImgBox.SizeMode = PictureBoxSizeMode.Zoom;
             CapturedColorImgBox.TabIndex = 16;
             CapturedColorImgBox.TabStop = false;
             // 
@@ -327,7 +327,7 @@
             StartLabel.BackColor = SystemColors.ActiveCaptionText;
             StartLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             StartLabel.ForeColor = SystemColors.ButtonFace;
-            StartLabel.Location = new Point(692, 167);
+            StartLabel.Location = new Point(934, 299);
             StartLabel.Name = "StartLabel";
             StartLabel.Size = new Size(157, 21);
             StartLabel.TabIndex = 26;
@@ -339,7 +339,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Desktop;
-            ClientSize = new Size(1028, 619);
+            ClientSize = new Size(1453, 619);
             Controls.Add(StartLabel);
             Controls.Add(DilateErodeIterationsLabel);
             Controls.Add(DilateErodeKernelSizeLabel);
