@@ -65,7 +65,7 @@ namespace Pong
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            videoCapture = new VideoCapture(1);
+            videoCapture = new VideoCapture(0);
 
             VarianceTrackbar.Value = 50;
 
@@ -112,7 +112,7 @@ namespace Pong
                 CvInvoke.Flip(currentFrameBGR, currentFrameBGR, FlipType.Horizontal);
             }
 
-            CvInvoke.MedianBlur(currentFrameBGR, currentFrameBGR, 5);
+            // CvInvoke.MedianBlur(currentFrameBGR, currentFrameBGR, 5);
 
             using var currentFrameHSV = new Mat();
             using var inRangeMat = new Mat();
