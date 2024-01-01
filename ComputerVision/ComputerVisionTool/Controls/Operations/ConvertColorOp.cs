@@ -19,15 +19,18 @@ namespace ComputerVisionTool.Controls.Operations
             public override readonly string ToString() => Name;
         }
 
-        public OperationInfo OpInfo { get; set; }
+        public OperationInfo OpInfo { get; }
+        public CVToolsForm ContainerForm { get; set; }
 
-        public ConvertColorOp()
+        public ConvertColorOp(Control parent, Point location, CVToolsForm containerForm)
         {
+            Parent = parent;
+            Location = location;
+            ContainerForm = containerForm;
+
             InitializeComponent();
 
             OpInfo = new OperationInfo();
-            InputImg.OpInfo = OpInfo;
-            OutputImg.OpInfo = OpInfo;
 
             OpComboBox.Items.AddRange(new object[]
             {
@@ -46,8 +49,7 @@ namespace ComputerVisionTool.Controls.Operations
             UpdateOutput();
         }
 
-        private void OpComboBox_SelectedIndexChanged(object sender, EventArgs e)
-            => UpdateAll();
+        private void OpComboBox_SelectedIndexChanged(object sender, EventArgs e) => UpdateAll();
 
         private void UpdateOutput()
         {

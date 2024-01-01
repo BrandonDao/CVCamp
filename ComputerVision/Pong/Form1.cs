@@ -49,7 +49,7 @@ namespace Pong
         private Rectangle rightPaddleHitbox;
         private Rectangle previousRightPaddleHitbox;
 
-#pragma warning disable CS8618 // Non-nullable fields can be null on constructor exit
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public Form1()
         {
             InitializeComponent();

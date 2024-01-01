@@ -1,6 +1,6 @@
 ﻿namespace ComputerVisionTool
 {
-    partial class Form1
+    partial class CVToolsForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,12 +29,13 @@
         private void InitializeComponent()
         {
             AddBitwiseButton = new Button();
-            AddColorConvertButton = new Button();
+            AddConvertColorButton = new Button();
+            AddTabButton = new Button();
             SuspendLayout();
             // 
             // AddBitwiseButton
             // 
-            AddBitwiseButton.Location = new Point(12, 6);
+            AddBitwiseButton.Location = new Point(12, 75);
             AddBitwiseButton.Name = "AddBitwiseButton";
             AddBitwiseButton.Size = new Size(140, 23);
             AddBitwiseButton.TabIndex = 1;
@@ -42,33 +43,49 @@
             AddBitwiseButton.UseVisualStyleBackColor = true;
             AddBitwiseButton.Click += AddBitwiseButton_Click;
             // 
-            // AddColorConvertButton
+            // AddConvertColorButton
             // 
-            AddColorConvertButton.Location = new Point(12, 35);
-            AddColorConvertButton.Name = "AddColorConvertButton";
-            AddColorConvertButton.Size = new Size(140, 23);
-            AddColorConvertButton.TabIndex = 2;
-            AddColorConvertButton.Text = "Add Color Converter";
-            AddColorConvertButton.UseVisualStyleBackColor = true;
-            AddColorConvertButton.Click += AddColorConvertButton_Click;
+            AddConvertColorButton.Location = new Point(12, 104);
+            AddConvertColorButton.Name = "AddConvertColorButton";
+            AddConvertColorButton.Size = new Size(140, 23);
+            AddConvertColorButton.TabIndex = 2;
+            AddConvertColorButton.Text = "Add Color Converter";
+            AddConvertColorButton.UseVisualStyleBackColor = true;
+            AddConvertColorButton.Click += AddConvertColorButton_Click;
             // 
-            // Form1
+            // AddTabButton
+            // 
+            AddTabButton.Location = new Point(12, 12);
+            AddTabButton.Name = "AddTabButton";
+            AddTabButton.Size = new Size(140, 23);
+            AddTabButton.TabIndex = 3;
+            AddTabButton.Text = "Add Tab";
+            AddTabButton.UseVisualStyleBackColor = true;
+            AddTabButton.Click += AddTabButton_Click;
+            // 
+            // CVToolsForm
             // 
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
-            ClientSize = new Size(985, 729);
-            Controls.Add(AddColorConvertButton);
+            ClientSize = new Size(984, 461);
+            Controls.Add(AddTabButton);
+            Controls.Add(AddConvertColorButton);
             Controls.Add(AddBitwiseButton);
-            Name = "Form1";
+            MaximumSize = new Size(5000, 5000);
+            MinimumSize = new Size(1000, 500);
+            Name = "CVToolsForm";
+            ShowIcon = false;
             Text = "CV Tool";
             Load += Form1_Load;
+            ClientSizeChanged += CVToolsForm_ClientSizeChanged;
             ResumeLayout(false);
         }
 
         #endregion
         private Button AddBitwiseButton;
-        private Button AddColorConvertButton;
+        private Button AddConvertColorButton;
+        private Button AddTabButton;
     }
 }

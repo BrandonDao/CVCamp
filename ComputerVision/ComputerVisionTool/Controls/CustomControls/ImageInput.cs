@@ -1,11 +1,12 @@
-﻿using Emgu.CV;
+﻿using ComputerVisionTool.Controls.Operations;
+using Emgu.CV;
 
 namespace ComputerVisionTool.Controls.CustomControls
 {
     public partial class ImageInput : UserControl
     {
         public Mat? Mat { get; private set; }
-        public OperationInfo? OpInfo { get; set; }
+
         private bool areNamedUpdatesDisabaled;
 
         public ImageInput()
@@ -18,26 +19,25 @@ namespace ComputerVisionTool.Controls.CustomControls
         public void UpdateNamedInputs()
         {
             if (areNamedUpdatesDisabaled) return;
-            
+
             var selectedNamedInput = (NamedInput)NamedInputComboBox.SelectedItem;
             NamedInputComboBox.Items.Clear();
-            // NamedInputComboBox.Items.Add(NamedInput.NoInput);
 
             areNamedUpdatesDisabaled = true;
 
-            int i = 0;
+            int currIndex = 0;
             foreach (NamedInput namedInput in NameManager.NamedInputsByImage.Values)
             {
-                if (namedInput.ImageOutput.OpInfo!.ID >= OpInfo!.ID) continue;
+                if (((IOperation)namedInput.ImageOutput.Parent).OpInfo!.ID >= ((IOperation)Parent).OpInfo!.ID) continue;
 
                 NamedInputComboBox.Items.Add(namedInput);
 
-                if(namedInput == selectedNamedInput)
+                if (namedInput == selectedNamedInput)
                 {
-                    NamedInputComboBox.SelectedIndex = i;
+                    NamedInputComboBox.SelectedIndex = currIndex;
                 }
 
-                i++;
+                currIndex++;
             }
             areNamedUpdatesDisabaled = false;
 
@@ -53,7 +53,7 @@ namespace ComputerVisionTool.Controls.CustomControls
 
             ImageBox.Image = Mat;
 
-            ((Form1)Parent.Parent).UpdateAll();
+            ((IOperation)Parent).ContainerForm.UpdateAll();
         }
 
         private void UpdateImage()
@@ -67,7 +67,7 @@ namespace ComputerVisionTool.Controls.CustomControls
         private void NamedInputComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateNamedInputs();
-            ((Form1)Parent.Parent).UpdateAll();
+            ((IOperation)Parent).ContainerForm.UpdateAll();
         }
     }
 }

@@ -40,7 +40,6 @@
             // 
             InputImgA.Location = new Point(3, 3);
             InputImgA.Name = "InputImgA";
-            InputImgA.OpInfo = null;
             InputImgA.Size = new Size(156, 186);
             InputImgA.TabIndex = 0;
             // 
@@ -48,7 +47,6 @@
             // 
             InputImgB.Location = new Point(165, 3);
             InputImgB.Name = "InputImgB";
-            InputImgB.OpInfo = null;
             InputImgB.Size = new Size(156, 186);
             InputImgB.TabIndex = 1;
             // 
@@ -57,7 +55,6 @@
             OutputImg.Location = new Point(412, 3);
             OutputImg.Mat = (Emgu.CV.Mat)resources.GetObject("OutputImg.Mat");
             OutputImg.Name = "OutputImg";
-            OutputImg.OpInfo = null;
             OutputImg.Size = new Size(157, 216);
             OutputImg.TabIndex = 2;
             // 

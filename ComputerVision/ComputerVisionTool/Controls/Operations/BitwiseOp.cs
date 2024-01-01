@@ -18,15 +18,18 @@ namespace ComputerVisionTool.Controls.Operations
             public override readonly string ToString() => Name;
         }
 
-        public OperationInfo OpInfo { get; set; }
-        public BitwiseOp()
+        public OperationInfo OpInfo { get; }
+        public CVToolsForm ContainerForm { get; set; }
+
+        public BitwiseOp(Control parent, Point location, CVToolsForm containerForm)
         {
+            Parent = parent;
+            Location = location;
+            ContainerForm = containerForm;
+
             InitializeComponent();
 
             OpInfo = new OperationInfo();
-            InputImgA.OpInfo = OpInfo;
-            InputImgB.OpInfo = OpInfo;
-            OutputImg.OpInfo = OpInfo;
 
             OpComboBox.Items.AddRange(new object[]
             {
@@ -66,7 +69,7 @@ namespace ComputerVisionTool.Controls.Operations
         private void OpComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateOutput();
-            ((Form1)Parent)?.UpdateAll();
+            ContainerForm.UpdateAll();
         }
     }
 }

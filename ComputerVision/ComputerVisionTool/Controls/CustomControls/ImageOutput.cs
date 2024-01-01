@@ -1,11 +1,11 @@
-﻿using Emgu.CV;
+﻿using ComputerVisionTool.Controls.Operations;
+using Emgu.CV;
 
 namespace ComputerVisionTool.Controls.CustomControls
 {
     public partial class ImageOutput : UserControl
     {
         public Mat Mat { get; set; }
-        public OperationInfo? OpInfo { get; set; }
 
         public ImageOutput()
         {
@@ -30,7 +30,7 @@ namespace ComputerVisionTool.Controls.CustomControls
                 NameManager.NamedInputsByImage[this].Name = NameTextbox.Text;
             }
 
-            ((Form1)Parent.Parent).UpdateAll();
+            ((IOperation)Parent).ContainerForm.UpdateAll();
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
