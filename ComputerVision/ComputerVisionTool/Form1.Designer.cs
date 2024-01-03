@@ -34,6 +34,7 @@
             AddErodeButton = new Button();
             AddDilateButton = new Button();
             AddThresholdButton = new Button();
+            AddInRangeButton = new Button();
             SuspendLayout();
             // 
             // AddBitwiseButton
@@ -96,6 +97,16 @@
             AddThresholdButton.UseVisualStyleBackColor = true;
             AddThresholdButton.Click += AddThresholdButton_Click;
             // 
+            // AddInRangeButton
+            // 
+            AddInRangeButton.Location = new Point(12, 220);
+            AddInRangeButton.Name = "AddInRangeButton";
+            AddInRangeButton.Size = new Size(140, 23);
+            AddInRangeButton.TabIndex = 7;
+            AddInRangeButton.Text = "Add InRange";
+            AddInRangeButton.UseVisualStyleBackColor = true;
+            AddInRangeButton.Click += AddInRangeButton_Click;
+            // 
             // CVToolsForm
             // 
             AllowDrop = true;
@@ -103,6 +114,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             ClientSize = new Size(984, 461);
+            Controls.Add(AddInRangeButton);
             Controls.Add(AddThresholdButton);
             Controls.Add(AddDilateButton);
             Controls.Add(AddErodeButton);
@@ -126,5 +138,6 @@
         private Button AddErodeButton;
         private Button AddDilateButton;
         private Button AddThresholdButton;
+        private Button AddInRangeButton;
     }
 }

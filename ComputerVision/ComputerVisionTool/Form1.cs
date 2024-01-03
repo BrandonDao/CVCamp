@@ -1,3 +1,4 @@
+using ComputerVision.Controls;
 using ComputerVisionTool.Controls.CustomControls;
 using ComputerVisionTool.Controls.Operations;
 using Emgu.CV;
@@ -55,6 +56,7 @@ namespace ComputerVisionTool
         private void AddErodeButton_Click(object sender, EventArgs e) => TabManager.AddOperation(typeof(ErodeOp));
         private void AddDilateButton_Click(object sender, EventArgs e) => TabManager.AddOperation(typeof(DilateOp));
         private void AddThresholdButton_Click(object sender, EventArgs e) => TabManager.AddOperation(typeof(ThresholdOp));
+        private void AddInRangeButton_Click(object sender, EventArgs e) => TabManager.AddOperation(typeof(InRangeOp));
 
         private void CVToolsForm_ClientSizeChanged(object sender, EventArgs e)
         {
