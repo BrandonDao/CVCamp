@@ -19,7 +19,6 @@ namespace ComputerVisionTool.Controls.Operations
             public override readonly string ToString() => Name;
         }
 
-        public OperationInfo OpInfo { get; }
         public CVToolsForm ContainerForm { get; set; }
 
         public ConvertColorOp(Control parent, Point location, CVToolsForm containerForm)
@@ -29,8 +28,6 @@ namespace ComputerVisionTool.Controls.Operations
             ContainerForm = containerForm;
 
             InitializeComponent();
-
-            OpInfo = new OperationInfo();
 
             OpComboBox.Items.AddRange(new object[]
             {

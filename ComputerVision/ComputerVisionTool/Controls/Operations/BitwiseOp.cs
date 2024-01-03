@@ -18,7 +18,6 @@ namespace ComputerVisionTool.Controls.Operations
             public override readonly string ToString() => Name;
         }
 
-        public OperationInfo OpInfo { get; }
         public CVToolsForm ContainerForm { get; set; }
 
         public BitwiseOp(Control parent, Point location, CVToolsForm containerForm)
@@ -28,19 +27,16 @@ namespace ComputerVisionTool.Controls.Operations
             ContainerForm = containerForm;
 
             InitializeComponent();
-
-            OpInfo = new OperationInfo();
-
             OpComboBox.Items.AddRange(new object[]
             {
-                new OpType("OR", (a,b,c) =>  {CvInvoke.BitwiseOr(a,b,c); InputImgB.Show(); }),
+                new OpType("OR", (a,b,c)  => {CvInvoke.BitwiseOr(a,b,c); InputImgB.Show(); }),
                 new OpType("AND", (a,b,c) => {CvInvoke.BitwiseAnd(a,b,c); InputImgB.Show(); }),
                 new OpType("XOR", (a,b,c) => {CvInvoke.BitwiseXor(a,b,c); InputImgB.Show(); }),
                 new OpType("NOT", (a,_,c) => { CvInvoke.BitwiseNot(a,c); InputImgB.Hide(); }),
+                new OpType("Abs. Diff.", (a,b,c) => { CvInvoke.AbsDiff(a,b,c); InputImgB.Show(); }),
             });
 
             OpComboBox.SelectedIndex = 0;
-            UpdateAll();
         }
 
         public void UpdateAll()

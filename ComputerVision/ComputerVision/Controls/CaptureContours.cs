@@ -38,7 +38,7 @@ namespace ComputerVision.Controls
             Mat heirarchy = new();
             CvInvoke.FindContours(grayInMat, contours, heirarchy, RetrType.External, ChainApproxMethod.ChainApproxNone);
 
-            CvInvoke.DrawContours(outMat, contours, -1, new MCvScalar(0, 0, 255), 5);
+            CvInvoke.DrawContours(outMat, contours, -1, new MCvScalar(0, 0, 255), 2);
 
             OutImgBox.Image = outMat;
         }

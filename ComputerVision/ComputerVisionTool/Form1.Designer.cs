@@ -31,6 +31,9 @@
             AddBitwiseButton = new Button();
             AddConvertColorButton = new Button();
             AddTabButton = new Button();
+            AddErodeButton = new Button();
+            AddDilateButton = new Button();
+            AddThresholdButton = new Button();
             SuspendLayout();
             // 
             // AddBitwiseButton
@@ -63,6 +66,36 @@
             AddTabButton.UseVisualStyleBackColor = true;
             AddTabButton.Click += AddTabButton_Click;
             // 
+            // AddErodeButton
+            // 
+            AddErodeButton.Location = new Point(12, 133);
+            AddErodeButton.Name = "AddErodeButton";
+            AddErodeButton.Size = new Size(140, 23);
+            AddErodeButton.TabIndex = 4;
+            AddErodeButton.Text = "Add Erode";
+            AddErodeButton.UseVisualStyleBackColor = true;
+            AddErodeButton.Click += AddErodeButton_Click;
+            // 
+            // AddDilateButton
+            // 
+            AddDilateButton.Location = new Point(12, 162);
+            AddDilateButton.Name = "AddDilateButton";
+            AddDilateButton.Size = new Size(140, 23);
+            AddDilateButton.TabIndex = 5;
+            AddDilateButton.Text = "Add Dilate";
+            AddDilateButton.UseVisualStyleBackColor = true;
+            AddDilateButton.Click += AddDilateButton_Click;
+            // 
+            // AddThresholdButton
+            // 
+            AddThresholdButton.Location = new Point(12, 191);
+            AddThresholdButton.Name = "AddThresholdButton";
+            AddThresholdButton.Size = new Size(140, 23);
+            AddThresholdButton.TabIndex = 6;
+            AddThresholdButton.Text = "Add Threshold";
+            AddThresholdButton.UseVisualStyleBackColor = true;
+            AddThresholdButton.Click += AddThresholdButton_Click;
+            // 
             // CVToolsForm
             // 
             AllowDrop = true;
@@ -70,6 +103,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             ClientSize = new Size(984, 461);
+            Controls.Add(AddThresholdButton);
+            Controls.Add(AddDilateButton);
+            Controls.Add(AddErodeButton);
             Controls.Add(AddTabButton);
             Controls.Add(AddConvertColorButton);
             Controls.Add(AddBitwiseButton);
@@ -87,5 +123,8 @@
         private Button AddBitwiseButton;
         private Button AddConvertColorButton;
         private Button AddTabButton;
+        private Button AddErodeButton;
+        private Button AddDilateButton;
+        private Button AddThresholdButton;
     }
 }

@@ -14,4 +14,10 @@
     <PackageReference Include="emgu.cv.ui" Version="4.8.1.5350" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Controls\Operations\DilateOp.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

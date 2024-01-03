@@ -28,8 +28,6 @@ namespace ComputerVisionTool.Controls.CustomControls
             int currIndex = 0;
             foreach (NamedInput namedInput in NameManager.NamedInputsByImage.Values)
             {
-                if (((IOperation)namedInput.ImageOutput.Parent).OpInfo!.ID >= ((IOperation)Parent).OpInfo!.ID) continue;
-
                 NamedInputComboBox.Items.Add(namedInput);
 
                 if (namedInput == selectedNamedInput)
@@ -61,11 +59,14 @@ namespace ComputerVisionTool.Controls.CustomControls
             if (NamedInputComboBox.SelectedItem == null) return;
 
             Mat = ((NamedInput)NamedInputComboBox.SelectedItem).ImageOutput.Mat;
-            ImageBox.Image = Mat;
+            ImageBox.Image?.Dispose();
+            ImageBox.Image = Mat.Clone();
         }
 
         private void NamedInputComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (areNamedUpdatesDisabaled) return;
+
             UpdateNamedInputs();
             ((IOperation)Parent).ContainerForm.UpdateAll();
         }
