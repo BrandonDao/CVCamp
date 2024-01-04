@@ -27,6 +27,7 @@ namespace ComputerVisionTool.Controls.Operations
             ContainerForm = containerForm;
 
             InitializeComponent();
+            
             OpComboBox.Items.AddRange(new object[]
             {
                 new OpType("OR", (a,b,c)  => {CvInvoke.BitwiseOr(a,b,c); InputImgB.Show(); }),

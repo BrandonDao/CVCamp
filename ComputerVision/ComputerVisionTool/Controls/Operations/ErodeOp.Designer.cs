@@ -35,7 +35,6 @@
             KernelSizeTrackbar = new TrackBar();
             KernelSizeLabel = new Label();
             IterationsLabel = new Label();
-            ElementTypeComboBox = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)IterationsTrackbar).BeginInit();
             ((System.ComponentModel.ISupportInitialize)KernelSizeTrackbar).BeginInit();
             SuspendLayout();
@@ -95,20 +94,10 @@
             IterationsLabel.TabIndex = 5;
             IterationsLabel.Text = "Iterations";
             // 
-            // ElementTypeComboBox
-            // 
-            ElementTypeComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            ElementTypeComboBox.FormattingEnabled = true;
-            ElementTypeComboBox.Location = new Point(165, 162);
-            ElementTypeComboBox.Name = "ElementTypeComboBox";
-            ElementTypeComboBox.Size = new Size(121, 23);
-            ElementTypeComboBox.TabIndex = 6;
-            // 
             // ErodeOp
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(ElementTypeComboBox);
             Controls.Add(IterationsLabel);
             Controls.Add(KernelSizeLabel);
             Controls.Add(KernelSizeTrackbar);
@@ -131,6 +120,5 @@
         private TrackBar KernelSizeTrackbar;
         private Label KernelSizeLabel;
         private Label IterationsLabel;
-        private ComboBox ElementTypeComboBox;
     }
 }

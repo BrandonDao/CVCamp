@@ -67,7 +67,7 @@
             Controls.Add(NamedInputComboBox);
             Controls.Add(ImageBox);
             Name = "ImageInput";
-            Size = new Size(156, 186);
+            Size = new Size(156, 184);
             ((System.ComponentModel.ISupportInitialize)ImageBox).EndInit();
             ResumeLayout(false);
         }

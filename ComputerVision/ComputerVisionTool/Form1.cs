@@ -14,7 +14,7 @@ namespace ComputerVisionTool
         {
             InitializeComponent();
 
-            videoCapture = new VideoCapture(0);
+            videoCapture = new VideoCapture(1);
             cameraOutput = new ImageOutput()
             {
                 Parent = new BaseOp(containerForm: this)
@@ -57,13 +57,16 @@ namespace ComputerVisionTool
         private void AddDilateButton_Click(object sender, EventArgs e) => TabManager.AddOperation(typeof(DilateOp));
         private void AddThresholdButton_Click(object sender, EventArgs e) => TabManager.AddOperation(typeof(ThresholdOp));
         private void AddInRangeButton_Click(object sender, EventArgs e) => TabManager.AddOperation(typeof(InRangeOp));
+        private void AddRotateFlipButton_Click(object sender, EventArgs e) => TabManager.AddOperation(typeof(RotateFlipOp));
+        private void AddROIButton_Click(object sender, EventArgs e) => TabManager.AddOperation(typeof(ROIOp));
+        private void AddTransformationButton_Click(object sender, EventArgs e) => TabManager.AddOperation(typeof(TransformationOp));
+
 
         private void CVToolsForm_ClientSizeChanged(object sender, EventArgs e)
         {
             TabManager.TabControl.Width = ClientSize.Width - TabManager.DefaultX;
             TabManager.TabControl.Height = ClientSize.Height;
         }
-
 
         #endregion Events
     }
