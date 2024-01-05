@@ -30,8 +30,8 @@ namespace ComputerVisionTool.Controls.Operations
         {
             try
             {
-                VectorOfVectorOfPoint contours = new();
-                Mat heirarchy = new();
+                using VectorOfVectorOfPoint contours = new();
+                using Mat heirarchy = new();
                 CvInvoke.FindContours(ContourInputImg.Mat, contours, heirarchy, RetrType.External, ChainApproxMethod.ChainApproxNone);
                 CvInvoke.ApproxPolyDP(contours[0], contours[0], EpsilonTrackbar.Value, closed: true);
 
@@ -49,6 +49,7 @@ namespace ComputerVisionTool.Controls.Operations
                 var clone = InputImg.Mat!.Clone();
                 CvInvoke.DrawContours(clone, contours, contourIndex, new MCvScalar(0, 255, 0), thickness: 4);
 
+                ContourOutputImg.Mat.Dispose();
                 ContourOutputImg.Mat = clone;
                 ContourOutputImg.UpdateImage();
 

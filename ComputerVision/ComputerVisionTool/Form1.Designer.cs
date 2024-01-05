@@ -38,6 +38,7 @@
             AddRotateFlipButton = new Button();
             AddROIButton = new Button();
             AddTransformationButton = new Button();
+            AddCaptureContourButton = new Button();
             SuspendLayout();
             // 
             // AddBitwiseButton
@@ -52,7 +53,7 @@
             // 
             // AddConvertColorButton
             // 
-            AddConvertColorButton.Location = new Point(12, 104);
+            AddConvertColorButton.Location = new Point(12, 133);
             AddConvertColorButton.Name = "AddConvertColorButton";
             AddConvertColorButton.Size = new Size(140, 23);
             AddConvertColorButton.TabIndex = 2;
@@ -72,7 +73,7 @@
             // 
             // AddErodeButton
             // 
-            AddErodeButton.Location = new Point(12, 162);
+            AddErodeButton.Location = new Point(12, 191);
             AddErodeButton.Name = "AddErodeButton";
             AddErodeButton.Size = new Size(140, 23);
             AddErodeButton.TabIndex = 4;
@@ -82,7 +83,7 @@
             // 
             // AddDilateButton
             // 
-            AddDilateButton.Location = new Point(12, 133);
+            AddDilateButton.Location = new Point(12, 162);
             AddDilateButton.Name = "AddDilateButton";
             AddDilateButton.Size = new Size(140, 23);
             AddDilateButton.TabIndex = 5;
@@ -92,7 +93,7 @@
             // 
             // AddThresholdButton
             // 
-            AddThresholdButton.Location = new Point(12, 278);
+            AddThresholdButton.Location = new Point(12, 307);
             AddThresholdButton.Name = "AddThresholdButton";
             AddThresholdButton.Size = new Size(140, 23);
             AddThresholdButton.TabIndex = 6;
@@ -102,7 +103,7 @@
             // 
             // AddInRangeButton
             // 
-            AddInRangeButton.Location = new Point(12, 191);
+            AddInRangeButton.Location = new Point(12, 220);
             AddInRangeButton.Name = "AddInRangeButton";
             AddInRangeButton.Size = new Size(140, 23);
             AddInRangeButton.TabIndex = 7;
@@ -112,7 +113,7 @@
             // 
             // AddRotateFlipButton
             // 
-            AddRotateFlipButton.Location = new Point(12, 249);
+            AddRotateFlipButton.Location = new Point(12, 278);
             AddRotateFlipButton.Name = "AddRotateFlipButton";
             AddRotateFlipButton.Size = new Size(140, 23);
             AddRotateFlipButton.TabIndex = 8;
@@ -122,7 +123,7 @@
             // 
             // AddROIButton
             // 
-            AddROIButton.Location = new Point(12, 220);
+            AddROIButton.Location = new Point(12, 249);
             AddROIButton.Name = "AddROIButton";
             AddROIButton.Size = new Size(140, 23);
             AddROIButton.TabIndex = 9;
@@ -132,13 +133,23 @@
             // 
             // AddTransformationButton
             // 
-            AddTransformationButton.Location = new Point(12, 307);
+            AddTransformationButton.Location = new Point(12, 336);
             AddTransformationButton.Name = "AddTransformationButton";
             AddTransformationButton.Size = new Size(140, 23);
             AddTransformationButton.TabIndex = 10;
             AddTransformationButton.Text = "Add Transformation";
             AddTransformationButton.UseVisualStyleBackColor = true;
             AddTransformationButton.Click += AddTransformationButton_Click;
+            // 
+            // AddCaptureContourButton
+            // 
+            AddCaptureContourButton.Location = new Point(12, 104);
+            AddCaptureContourButton.Name = "AddCaptureContourButton";
+            AddCaptureContourButton.Size = new Size(140, 23);
+            AddCaptureContourButton.TabIndex = 11;
+            AddCaptureContourButton.Text = "Add Contour Capture";
+            AddCaptureContourButton.UseVisualStyleBackColor = true;
+            AddCaptureContourButton.Click += AddCaptureContourButton_Click;
             // 
             // CVToolsForm
             // 
@@ -147,6 +158,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             ClientSize = new Size(1184, 561);
+            Controls.Add(AddCaptureContourButton);
             Controls.Add(AddTransformationButton);
             Controls.Add(AddROIButton);
             Controls.Add(AddRotateFlipButton);
@@ -178,5 +190,6 @@
         private Button AddRotateFlipButton;
         private Button AddROIButton;
         private Button AddTransformationButton;
+        private Button AddCaptureContourButton;
     }
 }
