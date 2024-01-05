@@ -14,7 +14,7 @@ namespace ComputerVisionTool
         {
             InitializeComponent();
 
-            videoCapture = new VideoCapture(0);
+            videoCapture = new VideoCapture(1);
             cameraOutput = new ImageOutput()
             {
                 Parent = new BaseOp(containerForm: this)
