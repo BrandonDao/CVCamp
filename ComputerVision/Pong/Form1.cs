@@ -18,8 +18,8 @@ namespace Pong
         private Mat dilateElement;
         private Mat contourHeirarchy;
 
+        private Point previousLeftPaddlePosition;
         private Point leftPaddlePosition;
-        private Point rightPaddlePosition;
 
         private Stopwatch collisionTimer;
 
@@ -27,7 +27,6 @@ namespace Pong
         private Graphics gameGFX;
 
         private readonly MCvScalar colorA;
-        private readonly MCvScalar colorB;
         private readonly MCvScalar contourColor;
 
         private readonly Point defaultAnchor;
@@ -37,17 +36,15 @@ namespace Pong
 
         private const int ballSize = 15;
         private const int defaultBallVelocity = 6;
+        private Rectangle previousBallBoundingBox;
         private Rectangle ballBoundingBox;
         private Point ballVelocity;
 
-        private const int paddleDistFromSide = 16;
+        private const int paddleDistFromSide = 30;
         private readonly Size paddleSize;
 
-        private Rectangle previousLeftPaddleHitbox;
         private Rectangle leftPaddleHitbox;
-
         private Rectangle rightPaddleHitbox;
-        private Rectangle previousRightPaddleHitbox;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public Form1()
@@ -58,7 +55,6 @@ namespace Pong
             defaultBorderValue = new MCvScalar(0, 0, 0);
             paddleSize = new Size(12, 100);
             colorA = new MCvScalar(0, 255, 0);
-            colorB = new MCvScalar(255, 0, 0);
             contourColor = new MCvScalar(255, 255, 255);
         }
 #pragma warning restore CS8618
@@ -75,7 +71,7 @@ namespace Pong
             DilateIterationsTrackbar.Value = 2;
 
             currentFrameBGR = new Mat();
-            Mat capturedFrame = CvInvoke.Imread(@"..\..\..\..\..\images\defaultPaddleColor.png");
+            Mat capturedFrame = CvInvoke.Imread(@"..\..\..\..\..\images\cat.png");
             UpdateCapturedColor(capturedFrame);
 
             UpdateInRangeBounds();
@@ -132,45 +128,32 @@ namespace Pong
             CvInvoke.FindContours(inRangeMat, contours, contourHeirarchy, RetrType.External, ChainApproxMethod.ChainApproxNone);
 
             using Mat currentFrameClone = currentFrameBGR.Clone();
-            
-            if (contours.Size >= 2)
+
+            if (contours.Size >= 1)
             {
                 var contoursList = new List<VectorOfPoint>(contours.Size);
-                for(int i = 0; i < contours.Size; i++)
+                for (int i = 0; i < contours.Size; i++)
                 {
                     contoursList.Add(contours[i]);
                 }
 
-                contoursList.Sort(new Comparison<VectorOfPoint>((a, b) =>
+                VectorOfPoint leftContour = contoursList[0];
+                for (int i = 1; i < contoursList.Count; i++)
                 {
-                    var aArea = CvInvoke.ContourArea(a);
-                    var bArea = CvInvoke.ContourArea(b);
-
-                    return aArea > bArea ? 1 : (aArea == bArea ? 0 : 1);
-                }));
-
-                var leftContour = contoursList[0];
-                var rightContour = contoursList[1];
+                    if (CvInvoke.ContourArea(contoursList[i]) > CvInvoke.ContourArea(leftContour))
+                    {
+                        leftContour = contoursList[i];
+                    }
+                }
 
                 var leftMoment = CvInvoke.Moments(leftContour);
-                var rightMoment = CvInvoke.Moments(rightContour);
 
-                if (leftMoment.GravityCenter.X > rightMoment.GravityCenter.X)
-                {
-                    var tempContour = leftContour;
-                    var tempMoment = leftMoment;
-
-                    leftContour = rightContour;
-                    leftMoment = rightMoment;
-
-                    rightContour = tempContour;
-                    rightMoment = tempMoment;
-                }
 
                 CvInvoke.DrawContours(currentFrameClone, contours, -1, contourColor, thickness: 2);
 
                 Rectangle boundingBox = CvInvoke.BoundingRectangle(leftContour);
 
+                previousLeftPaddlePosition = leftPaddlePosition;
                 leftPaddlePosition = new Point(
                     (int)(leftMoment.GravityCenter.X * gameMap.Width / currentFrameHSV.Width),
                     (int)(leftMoment.GravityCenter.Y * gameMap.Height / currentFrameHSV.Height));
@@ -178,17 +161,6 @@ namespace Pong
                 CvInvoke.DrawMarker(currentFrameClone, new Point((int)leftMoment.GravityCenter.X, (int)leftMoment.GravityCenter.Y),
                     colorA, MarkerTypes.Cross, markerSize: 10, thickness: 2);
                 CvInvoke.Rectangle(currentFrameClone, boundingBox, colorA, thickness: 2);
-
-
-                boundingBox = CvInvoke.BoundingRectangle(rightContour);
-
-                rightPaddlePosition = new Point(
-                    (int)(rightMoment.GravityCenter.X * gameMap.Width / currentFrameHSV.Width),
-                    (int)(rightMoment.GravityCenter.Y * gameMap.Height / currentFrameHSV.Height));
-
-                CvInvoke.DrawMarker(currentFrameClone, new Point((int)rightMoment.GravityCenter.X, (int)rightMoment.GravityCenter.Y),
-                    colorB, MarkerTypes.Cross, markerSize: 10, thickness: 2);
-                CvInvoke.Rectangle(currentFrameClone, boundingBox, colorB, thickness: 2);
             }
             CameraImgBox.Image = currentFrameClone;
         }
@@ -196,49 +168,101 @@ namespace Pong
         {
             if (!isGamePlaying) return;
 
-            previousLeftPaddleHitbox = leftPaddleHitbox;
-            previousRightPaddleHitbox = rightPaddleHitbox;
+            previousBallBoundingBox = ballBoundingBox;
 
-            leftPaddleHitbox.X = leftPaddlePosition.X - leftPaddleHitbox.Width / 2;
-            leftPaddleHitbox.Y = leftPaddlePosition.Y - leftPaddleHitbox.Height / 2;
+            leftPaddleHitbox.Location = leftPaddlePosition;
 
-            rightPaddleHitbox.X = rightPaddlePosition.X - rightPaddleHitbox.Width / 2;
-            rightPaddleHitbox.Y = rightPaddlePosition.Y - rightPaddleHitbox.Height / 2;
+            var leftXVelocity = leftPaddlePosition.X - previousLeftPaddlePosition.X;
+            var leftYVelocity = leftPaddlePosition.Y - previousLeftPaddlePosition.Y;
 
-            int leftXVelocity = leftPaddleHitbox.X - previousLeftPaddleHitbox.X;
-            int leftYVelocity = leftPaddleHitbox.Y - previousLeftPaddleHitbox.Y;
-
-            int rightXVelocity = rightPaddleHitbox.X - previousRightPaddleHitbox.X;
-            int rightYVelocity = rightPaddleHitbox.Y - previousRightPaddleHitbox.Y;
-
-            var leftHitboxes = new Rectangle[Math.Abs(leftXVelocity) / 10 + 1];
-            for(int i = 0; i < leftHitboxes.Length - 1; i++)
+            var leftHitboxes = new Rectangle[Math.Abs(leftXVelocity) + 1];
+            for (int i = 0; i < leftHitboxes.Length - 1; i++)
             {
                 float interpolant = i / (float)leftHitboxes.Length;
 
                 leftHitboxes[i] = new Rectangle(
-                    (int)(previousLeftPaddleHitbox.X * (1 - interpolant) + leftPaddleHitbox.X * interpolant),
-                    (int)(previousLeftPaddleHitbox.Y * (1 - interpolant) + leftPaddleHitbox.Y * interpolant),
+                    (int)(previousLeftPaddlePosition.X * (1 - interpolant) + leftPaddlePosition.X * interpolant),
+                    (int)(previousLeftPaddlePosition.Y * (1 - interpolant) + leftPaddlePosition.Y * interpolant),
                     leftPaddleHitbox.Width,
                     leftPaddleHitbox.Height);
             }
             leftHitboxes[^1] = leftPaddleHitbox;
 
-            var rightHitboxes = new Rectangle[Math.Abs(rightXVelocity) / 10 + 1];
-            for (int i = 0; i < rightHitboxes.Length - 1; i++)
-            {
-                float interpolant = i / (float)leftHitboxes.Length;
+            rightPaddleHitbox.Y = ballBoundingBox.Y - rightPaddleHitbox.Height / 2 + ballBoundingBox.Height / 2;
 
-                rightHitboxes[i] = new Rectangle(
-                    (int)(previousRightPaddleHitbox.X * (1 - interpolant) + rightPaddleHitbox.X * interpolant),
-                    (int)(previousRightPaddleHitbox.Y * (1 - interpolant) + rightPaddleHitbox.Y * interpolant),
-                    rightPaddleHitbox.Width,
-                    rightPaddleHitbox.Height);
+            var ballHitboxes = new Rectangle[Math.Abs(ballVelocity.X) + 1];
+            for (int i = 0; i < ballHitboxes.Length - 1; i++)
+            {
+                float interpolant = i / (float)ballHitboxes.Length;
+
+                ballHitboxes[i] = new Rectangle(
+                    (int)(previousBallBoundingBox.X * (1 - interpolant) + ballBoundingBox.X * interpolant),
+                    (int)(previousBallBoundingBox.Y * (1 - interpolant) + ballBoundingBox.Y * interpolant),
+                    ballBoundingBox.Width,
+                    ballBoundingBox.Height);
             }
-            rightHitboxes[^1] = rightPaddleHitbox;
+            ballHitboxes[^1] = ballBoundingBox;
 
             ballBoundingBox.X += ballVelocity.X;
             ballBoundingBox.Y += ballVelocity.Y;
+
+            gameGFX.Clear(Color.Black);
+
+            bool hasPlayerHitBall = false;
+
+            for (int i = 0; i < ballHitboxes.Length; i++)
+            {
+                gameGFX.FillEllipse(Brushes.Red, ballHitboxes[i]);
+
+                if (leftPaddleHitbox.IntersectsWith(ballHitboxes[i]))
+                {
+                    if (collisionTimer.ElapsedMilliseconds > 500)
+                    {
+                        hasPlayerHitBall = true;
+                        ballVelocity.X = -ballVelocity.X + leftXVelocity;
+                        if (ballVelocity.X > 20)
+                        {
+                            ballVelocity.X = 20;
+                        }
+                        ballVelocity.Y += leftYVelocity;
+                        if (ballVelocity.Y > 20)
+                        {
+                            ballVelocity.Y = 20;
+                        }
+                        else if(ballVelocity.Y < -20)
+                        {
+                            ballVelocity.Y = -20;
+                        }
+                        collisionTimer.Restart();
+                    }
+                }
+                else if (rightPaddleHitbox.IntersectsWith(ballHitboxes[i]))
+                {
+                    ballVelocity.X = -Math.Abs(ballVelocity.X);
+                    ballBoundingBox.X = rightPaddleHitbox.Left - ballBoundingBox.Width;
+                }
+            }
+            if(!hasPlayerHitBall)
+            {
+                for (int i = 0; i < leftHitboxes.Length; i++)
+                {
+                    gameGFX.FillRectangle(Brushes.Red, leftHitboxes[i]);
+
+                    if (ballBoundingBox.IntersectsWith(leftHitboxes[i]))
+                    {
+                        if (collisionTimer.ElapsedMilliseconds > 500)
+                        {
+                            ballVelocity.X = -ballVelocity.X + leftXVelocity;
+                            if (ballVelocity.X > 20)
+                            {
+                                ballVelocity.X = 20;
+                            }
+                            ballVelocity.Y += leftYVelocity;
+                            collisionTimer.Restart();
+                        }
+                    }
+                }
+            }
 
             if (ballBoundingBox.Bottom + ballVelocity.Y > gameMap.Height || ballBoundingBox.Y + ballVelocity.Y < 0)
             {
@@ -249,36 +273,6 @@ namespace Pong
                 ResetGame();
             }
 
-            gameGFX.Clear(Color.Black);
-
-            for (int i = 0; i < leftHitboxes.Length; i++)
-            {
-                gameGFX.FillRectangle(Brushes.Red, leftHitboxes[i]);
-
-                if (ballBoundingBox.IntersectsWith(leftHitboxes[i]))
-                {
-                    if (collisionTimer.ElapsedMilliseconds > 500)
-                    {
-                        ballVelocity.X = -ballVelocity.X + leftXVelocity;
-                        ballVelocity.Y += leftYVelocity;
-                        collisionTimer.Restart();
-                    }
-                }
-            }
-            for (int i = 0; i < rightHitboxes.Length; i++)
-            {
-                gameGFX.FillRectangle(Brushes.Red, rightHitboxes[i]);
-
-                if (ballBoundingBox.IntersectsWith(rightHitboxes[i]))
-                {
-                    if (collisionTimer.ElapsedMilliseconds > 500)
-                    {
-                        ballVelocity.X = -ballVelocity.X + rightXVelocity;
-                        ballVelocity.Y += rightYVelocity;
-                        collisionTimer.Restart();
-                    }
-                }
-            }
 
             gameGFX.FillRectangle(Brushes.White, leftPaddleHitbox);
             gameGFX.FillRectangle(Brushes.White, rightPaddleHitbox);
@@ -323,7 +317,7 @@ namespace Pong
                 capturedColor.V0 + VarianceTrackbar.Value,
                 capturedColor.V1 + VarianceTrackbar.Value,
                 capturedColor.V2 + VarianceTrackbar.Value);
-        } 
+        }
         private void UpdateDilateErode()
         {
             erodeElement = CvInvoke.GetStructuringElement(
@@ -339,7 +333,7 @@ namespace Pong
         private void UpdateCapturedColor(Mat capture)
         {
             CapturedFrameImgBox.Image = capture;
-            
+
             CvInvoke.CvtColor(capture, capture, ColorConversion.Bgr2Hsv);
 
             capturedColor = CvInvoke.Mean(capture);
@@ -351,7 +345,7 @@ namespace Pong
             CvInvoke.CvtColor(capturedColorMatClone, capturedColorMatClone, ColorConversion.Hsv2Bgr);
 
             CapturedColorImgBox.Image = capturedColorMatClone;
-            
+
             UpdateInRangeBounds();
         }
 
