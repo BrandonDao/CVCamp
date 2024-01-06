@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputerVisionTool", "Compu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pong", "Pong\Pong.csproj", "{20C249EE-92D1-4898-AE51-1009198EB260}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaperPlatformer", "PaperPlatformer\PaperPlatformer.csproj", "{90B8CCA9-8D8D-4462-B3E9-586971C5172B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaperPlatformer", "PaperPlatformer\PaperPlatformer.csproj", "{90B8CCA9-8D8D-4462-B3E9-586971C5172B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VEXPartAnalyzer", "VEXPartAnalyzer\VEXPartAnalyzer.csproj", "{4385D697-90CB-4A1D-A668-5035EC4ECC75}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{90B8CCA9-8D8D-4462-B3E9-586971C5172B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90B8CCA9-8D8D-4462-B3E9-586971C5172B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90B8CCA9-8D8D-4462-B3E9-586971C5172B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4385D697-90CB-4A1D-A668-5035EC4ECC75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4385D697-90CB-4A1D-A668-5035EC4ECC75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4385D697-90CB-4A1D-A668-5035EC4ECC75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4385D697-90CB-4A1D-A668-5035EC4ECC75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
