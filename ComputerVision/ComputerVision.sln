@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputerVision", "ComputerVision\ComputerVision.csproj", "{EA974A54-4D85-4A41-8DCD-07BAFD1FA30B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputerVisionTool", "ComputerVisionTool\ComputerVisionTool.csproj", "{7158C866-2402-4D8C-BB40-88D8D6852B65}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pong", "Pong\Pong.csproj", "{20C249EE-92D1-4898-AE51-1009198EB260}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaperPlatformer", "PaperPlatformer\PaperPlatformer.csproj", "{90B8CCA9-8D8D-4462-B3E9-586971C5172B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VEXPartAnalyzer", "VEXPartAnalyzer\VEXPartAnalyzer.csproj", "{4385D697-90CB-4A1D-A668-5035EC4ECC75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VEXPartAnalyzer", "VEXPartAnalyzer\VEXPartAnalyzer.csproj", "{4385D697-90CB-4A1D-A668-5035EC4ECC75}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EA974A54-4D85-4A41-8DCD-07BAFD1FA30B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA974A54-4D85-4A41-8DCD-07BAFD1FA30B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA974A54-4D85-4A41-8DCD-07BAFD1FA30B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA974A54-4D85-4A41-8DCD-07BAFD1FA30B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7158C866-2402-4D8C-BB40-88D8D6852B65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7158C866-2402-4D8C-BB40-88D8D6852B65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7158C866-2402-4D8C-BB40-88D8D6852B65}.Release|Any CPU.ActiveCfg = Release|Any CPU

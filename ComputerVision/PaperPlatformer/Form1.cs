@@ -17,8 +17,10 @@ namespace PaperPlatformer
         private List<Rectangle> savedBoundingBoxes;
         private Rectangle playerBoundingBox;
 
-        private int xVelocity;
-        private int yVelocity;
+        private PointF[] cameraFrameBounds;
+
+        private sbyte xVelocity;
+        private sbyte yVelocity;
 
         private bool isLeftDown;
         private bool isRightDown;
@@ -39,6 +41,20 @@ namespace PaperPlatformer
             savedBoundingBoxes = new List<Rectangle>();
             playerBoundingBox = new Rectangle(320, 0, 25, 25);
 
+            Mat? cameraFrame = null;
+            while (cameraFrame == null)
+            {
+                cameraFrame = videoCapture.QueryFrame();
+            }
+            cameraFrameBounds = new PointF[]
+            {
+                new Point(0, 0),
+                new Point(0, cameraFrame.Height),
+                new Point(cameraFrame.Width, cameraFrame.Height),
+                new Point(cameraFrame.Width, 0)
+            };
+            cameraFrame.Dispose();
+
             Application.Idle += OnIdle;
         }
 
@@ -48,7 +64,7 @@ namespace PaperPlatformer
 
             if (cameraFrame == null) return;
 
-            Mat frame = cameraFrame.Clone();
+            using Mat frame = cameraFrame.Clone();
 
             CvInvoke.Flip(frame, frame, FlipType.Both);
 
@@ -59,15 +75,14 @@ namespace PaperPlatformer
             using Mat paperInRange = new();
 
             CvInvoke.CvtColor(frame, frameHSV, ColorConversion.Bgr2Hsv);
-            CvInvoke.InRange(frameHSV, (ScalarArray)new MCvScalar(0, 0, 140), (ScalarArray)new MCvScalar(179, 150, 255), paperInRange);
-            CvInvoke.MedianBlur(frameHSV, frameHSV, 5);
+            CvInvoke.InRange(frameHSV, (ScalarArray)new MCvScalar(0, 0, 145), (ScalarArray)new MCvScalar(179, 70, 255), paperInRange);
 
             InRangeImgBox.Image?.Dispose();
             InRangeImgBox.Image = paperInRange.Clone();
 
+            CvInvoke.Erode(paperInRange, paperInRange, erodeElement, defaultAnchor, iterations: 4, BorderType.Reflect101, defaultBorderValue);
+            CvInvoke.Dilate(paperInRange, paperInRange, dilateElement, defaultAnchor, iterations: 6, BorderType.Reflect101, defaultBorderValue);
             CvInvoke.Erode(paperInRange, paperInRange, erodeElement, defaultAnchor, iterations: 2, BorderType.Reflect101, defaultBorderValue);
-            CvInvoke.Dilate(paperInRange, paperInRange, dilateElement, defaultAnchor, iterations: 5, BorderType.Reflect101, defaultBorderValue);
-            CvInvoke.Erode(paperInRange, paperInRange, erodeElement, defaultAnchor, iterations: 3, BorderType.Reflect101, defaultBorderValue);
 
             DilatedErodedImgBox.Image?.Dispose();
             DilatedErodedImgBox.Image = paperInRange.Clone();
@@ -75,21 +90,23 @@ namespace PaperPlatformer
             contours?.Dispose();
             contours = new();
 
-            VectorOfVectorOfPoint paperContour = new();
+            using VectorOfVectorOfPoint paperContour = new();
             using Mat heirarchy = new();
 
             CvInvoke.FindContours(paperInRange, paperContour, heirarchy, RetrType.External, ChainApproxMethod.ChainApproxNone);
 
             int contourIdx = 0;
+            double largestContourArea = CvInvoke.ContourArea(paperContour[contourIdx]);
             for (int i = 1; i < paperContour.Size; i++)
             {
-                if (CvInvoke.ContourArea(paperContour[contourIdx]) < CvInvoke.ContourArea(paperContour[i]))
-                {
-                    contourIdx = i;
-                }
+                double currentArea = CvInvoke.ContourArea(paperContour[i]);
+                if (largestContourArea > currentArea) continue;
+                
+                contourIdx = i;
+                largestContourArea = currentArea;
             }
 
-            CvInvoke.ApproxPolyDP(paperContour[contourIdx], paperContour[contourIdx], EpsilonTrackbar.Value, true);
+            CvInvoke.ApproxPolyDP(paperContour[contourIdx], paperContour[contourIdx], EpsilonTrackbar.Value, closed: true);
 
             using Mat contourMat = frame.Clone();
 
@@ -102,23 +119,32 @@ namespace PaperPlatformer
             if (paperContour[contourIdx].Size == 4)
             {
                 int topLeftIdx = 0;
+                double topLeftIdxDistance = Math.Pow(paperContour[contourIdx][topLeftIdx].X, 2) + Math.Pow(paperContour[contourIdx][topLeftIdx].Y, 2);
+
                 for (int i = 1; i < paperContour[contourIdx].Size; i++)
                 {
-                    if (Math.Pow(paperContour[contourIdx][i].X, 2) + Math.Pow(paperContour[contourIdx][i].Y, 2)
-                        < Math.Pow(paperContour[contourIdx][topLeftIdx].X, 2) + Math.Pow(paperContour[contourIdx][topLeftIdx].Y, 2))
-                    {
-                        topLeftIdx = i;
-                    }
+                    double currentDistance = Math.Pow(paperContour[contourIdx][i].X, 2) + Math.Pow(paperContour[contourIdx][i].Y, 2);
+                    
+                    if (topLeftIdxDistance < currentDistance) continue;
+                    
+                    topLeftIdx = i;
                 }
 
+                Mat perspectiveTransform = CvInvoke.GetPerspectiveTransform(
+                        new PointF[]
+                        {
+                            paperContour[contourIdx][topLeftIdx],
+                            paperContour[contourIdx][(topLeftIdx + 1) % 4],
+                            paperContour[contourIdx][(topLeftIdx + 2) % 4],
+                            paperContour[contourIdx][(topLeftIdx + 3) % 4]
+                        },
+                        cameraFrameBounds
+                    );
 
                 CvInvoke.WarpPerspective(
                     frame,
                     warpedPaper,
-                    CvInvoke.GetPerspectiveTransform(
-                        new PointF[] { paperContour[contourIdx][topLeftIdx], paperContour[contourIdx][(topLeftIdx + 1) % 4], paperContour[contourIdx][(topLeftIdx + 2) % 4], paperContour[contourIdx][(topLeftIdx + 3) % 4] },
-                        new PointF[] { new Point(0, 0), new Point(0, frame.Height), new Point(frame.Width, frame.Height), new Point(frame.Width, 0) }
-                    ),
+                    perspectiveTransform,
                     frame.Size,
                     warpType: Warp.Default);
 
@@ -157,14 +183,14 @@ namespace PaperPlatformer
                 {
                     yVelocity += 2;
 
-                    if (yVelocity > 10)
+                    if (yVelocity > 20)
                     {
-                        yVelocity = 10;
+                        yVelocity = 20;
                     }
                     if (isJumping && isGrounded)
                     {
                         isGrounded = false;
-                        yVelocity -= 25;
+                        yVelocity -= 40;
                     }
 
                     playerBoundingBox.Y += yVelocity;
@@ -231,10 +257,7 @@ namespace PaperPlatformer
 
                     CvInvoke.WarpPerspective(warpedPaper,
                         warpedPaper,
-                        CvInvoke.GetPerspectiveTransform(
-                            new PointF[] { paperContour[contourIdx][topLeftIdx], paperContour[contourIdx][(topLeftIdx + 1) % 4], paperContour[contourIdx][(topLeftIdx + 2) % 4], paperContour[contourIdx][(topLeftIdx + 3) % 4] },
-                            new PointF[] { new Point(0, 0), new Point(0, frame.Height), new Point(frame.Width, frame.Height), new Point(frame.Width, 0) }
-                        ),
+                        perspectiveTransform,
                         frame.Size,
                         warpType: Warp.InverseMap);
 
